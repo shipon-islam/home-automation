@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@theme inline {
+}
+@layer components {
+  .btn-teal {
+    @apply p-4 cursor-pointer uppercase bg-teal-500 rounded-md shadow shadow-teal-500 font-bold flex flex-col justify-center items-center text-teal-900;
+  }
+}
