@@ -3,7 +3,7 @@ const HomeSvg = ({ className }: { className?: string }) => (
     xmlns="http://www.w3.org/2000/svg"
     xmlSpace="preserve"
     viewBox="0 0 1200 1200"
-    className={`mt-5 rounded-md ${className}`}
+    className={`mt-5 rounded-md h-[360px] !w-full ${className}`}
   >
     <g id="BG">
       <path fill="#005C6E" d="M1200 0v1200H0V0z"></path>

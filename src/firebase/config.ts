@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
+import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyDlDsLQgfd4zBfuPepExOKR95Rp70eZgtI",
   authDomain: "home-automation-1c6f3.firebaseapp.com",
@@ -15,4 +16,5 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
+export const firestore_db = getFirestore(app);
 export const auth = getAuth(app);
