@@ -147,7 +147,7 @@ export default function HomeControl() {
           {!relays.relay4 ? "celling fan on" : "celling fan off"}
         </button>
       </div>
-      <div className="w-fit mx-auto mt-6 flex flex-col items-center gap-2">
+      <div className="w-fit mx-auto mt-6 sm:flex flex-col items-center gap-2 hidden">
         <button
           onClick={() => {
             if (listening) {
@@ -170,7 +170,29 @@ export default function HomeControl() {
           {listening ? "Listening..." : "Speak to control devices"}
         </p>
       </div>
-      <HomeSvg />
+      <div className="relative">
+        <HomeSvg />
+        <div className="sm:hidden w-fit mx-auto mt-6 flex flex-col items-center gap-2 absolute top-[55%] left-1/2 -translate-1/2">
+          <button
+            onClick={() => {
+              if (listening) {
+                SpeechRecognition.stopListening();
+                return;
+              } else {
+                SpeechRecognition.startListening();
+              }
+            }}
+            className="bg-white p-3 rounded-full"
+          >
+            <Icon
+              className={listening ? "text-yellow-500 animate-pulse" : ""}
+              icon="mingcute:mic-fill"
+              width="40"
+              height="40"
+            />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
