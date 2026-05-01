@@ -87,6 +87,7 @@ export default function HomeControl() {
     <div>
       <div className="flex justify-between items-center mt-4">
         <Banner />
+
         <button onClick={handleALLClick}>
           <Icon
             className={!allRelay ? "text-teal-500" : "text-teal-500"}
@@ -172,7 +173,16 @@ export default function HomeControl() {
       </div>
       <div className="relative">
         <HomeSvg />
-        <div className="sm:hidden w-fit mx-auto mt-6 flex flex-col items-center gap-2 absolute top-[53%] left-1/2 -translate-1/2">
+        {listening && (
+          <div className="absolute top-[43.2%] left-1/2 -translate-x-1/2 text-center">
+            <p className=" text-black text-[9px] font-medium ">Listening...</p>
+            <p className="text-[8px] capitalize text-gray-700">
+              {transcript || "Speak to control"}
+            </p>
+          </div>
+        )}
+
+        <div className="sm:hidden w-fit mx-auto mt-6 flex flex-col items-center gap-2 absolute top-[53%] left-1/2 -translate-1/2 ">
           <button
             onClick={() => {
               if (listening) {
@@ -182,11 +192,11 @@ export default function HomeControl() {
                 SpeechRecognition.startListening();
               }
             }}
-            className="bg-white p-3 rounded-full"
+            className={`bg-white p-3 rounded-full border ${listening ? "border-yellow-500" : "border-teal-500"}`}
           >
             <Icon
               className={
-                listening ? "text-yellow-500 animate-pulse" : "text-teal-500"
+                listening ? " text-yellow-500! animate-pulse" : "text-teal-500!"
               }
               icon="mingcute:mic-fill"
               width="34"
