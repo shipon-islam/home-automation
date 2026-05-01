@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { ref, set, update } from "firebase/database";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -31,54 +31,66 @@ export default function HomeControl() {
       "/relay4": !allRelay,
     });
   };
-  const speakToAction = useCallback(() => {
-    if (!browserSupportsSpeechRecognition) {
-      alert("Your browser does not support speech recognition.");
-      return;
-    }
-
-    const text = transcript.toLowerCase();
-
-    if (text.includes("computer on") || text.includes("turn on computer")) {
-      set(ref(db, "/relay1"), false);
-    } else if (
-      text.includes("computer off") ||
-      text.includes("turn off computer")
-    ) {
-      set(ref(db, "/relay1"), true);
-    }
-    if (text.includes("dc fan on") || text.includes("turn on dc fan")) {
-      set(ref(db, "/relay2"), false);
-    }
-    if (text.includes("dc fan off") || text.includes("turn off dc fan")) {
-      set(ref(db, "/relay2"), true);
-    }
-    if (text.includes("light on") || text.includes("turn on light")) {
-      set(ref(db, "/relay3"), false);
-    }
-    if (text.includes("light off") || text.includes("turn off light")) {
-      set(ref(db, "/relay3"), true);
-    }
-    if (
-      text.includes("celling fan on") ||
-      text.includes("turn on celling fan")
-    ) {
-      set(ref(db, "/relay4"), false);
-    }
-    if (
-      text.includes("celling fan off") ||
-      text.includes("turn off celling fan")
-    ) {
-      set(ref(db, "/relay4"), true);
-    }
-    resetTranscript();
-  }, [browserSupportsSpeechRecognition, resetTranscript, transcript]);
 
   useEffect(() => {
     if (!listening && transcript) {
-      speakToAction();
+      if (!browserSupportsSpeechRecognition) {
+        alert("Your browser does not support speech recognition.");
+        return;
+      }
+
+      const text = transcript.toLowerCase();
+
+      if (text.includes("computer on") || text.includes("turn on computer")) {
+        set(ref(db, "/relay1"), false);
+      } else if (
+        text.includes("computer off") ||
+        text.includes("computer of") ||
+        text.includes("turn off computer")
+      ) {
+        set(ref(db, "/relay1"), true);
+      }
+      if (text.includes("dc fan on") || text.includes("turn on dc fan")) {
+        set(ref(db, "/relay2"), false);
+      }
+      if (
+        text.includes("dc fan off") ||
+        text.includes("dc fan of") ||
+        text.includes("turn off dc fan")
+      ) {
+        set(ref(db, "/relay2"), true);
+      }
+      if (text.includes("light on") || text.includes("turn on light")) {
+        set(ref(db, "/relay3"), false);
+      }
+      if (
+        text.includes("light off") ||
+        text.includes("light of") ||
+        text.includes("turn off light")
+      ) {
+        set(ref(db, "/relay3"), true);
+      }
+      if (
+        text.includes("celling fan on") ||
+        text.includes("turn on celling fan")
+      ) {
+        set(ref(db, "/relay4"), false);
+      }
+      if (
+        text.includes("celling fan off") ||
+        text.includes("celling fan of") ||
+        text.includes("turn off celling fan")
+      ) {
+        set(ref(db, "/relay4"), true);
+      }
+      resetTranscript();
     }
-  }, [listening, speakToAction, transcript]);
+  }, [
+    listening,
+    transcript,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  ]);
 
   useEffect(() => {
     setAllRelay(Object.values(relays).some((state) => state === true));
