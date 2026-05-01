@@ -172,7 +172,7 @@ export default function HomeControl() {
       </div>
       <div className="relative">
         <HomeSvg />
-        <div className="sm:hidden w-fit mx-auto mt-6 flex flex-col items-center gap-2 absolute top-[55%] left-1/2 -translate-1/2">
+        <div className="sm:hidden w-fit mx-auto mt-6 flex flex-col items-center gap-2 absolute top-[53%] left-1/2 -translate-1/2">
           <button
             onClick={() => {
               if (listening) {
@@ -185,10 +185,12 @@ export default function HomeControl() {
             className="bg-white p-3 rounded-full"
           >
             <Icon
-              className={listening ? "text-yellow-500 animate-pulse" : ""}
+              className={
+                listening ? "text-yellow-500 animate-pulse" : "text-teal-500"
+              }
               icon="mingcute:mic-fill"
-              width="40"
-              height="40"
+              width="34"
+              height="34"
             />
           </button>
         </div>
